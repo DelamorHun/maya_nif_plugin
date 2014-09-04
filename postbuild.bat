@@ -11,5 +11,9 @@ set modulepath=maya\%configuration%\%MAYA_PREFSVERSION%
 mkdir %modulepath%\plug-ins
 mkdir %modulepath%\scripts
 xcopy /fy %outputfile% %modulepath%\plug-ins
-xcopy /fy %platform%\%configuration%\niflib.dll %modulepath%
+if "%platform%"=="x64" (
+  xcopy /fy niflib\bin\niflib_x64.dll %modulepath%
+) else (
+  xcopy /fy niflib\bin\niflib.dll %modulepath%
+)
 xcopy /fy *.mel %modulepath%\scripts
