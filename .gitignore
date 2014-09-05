@@ -157,3 +157,5 @@ $RECYCLE.BIN/
 
 # PyCharm, which rhaleblian uses to do Git diffs
 /.idea
+
+/win-install/*.exe
