@@ -1,6 +1,6 @@
 rem : Launch VS for this specific flavour of Maya
 
-set MAYA_VERSION=2013
+set MAYA_VERSION=2012
 set MAYA_PLATFORM=win32
 set VC="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\VCExpress.exe"
 
