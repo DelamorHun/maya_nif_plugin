@@ -1,3 +1,4 @@
 [submodule "niflib"]
 	path = niflib
-	url = https://github.com/niftools/niflib.git
+	url = https://github.com/rhaleblian/niflib.git
+	branch = x64
