@@ -155,7 +155,8 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-# PyCharm, which rhaleblian uses to do Git diffs
+# Project metadata for PyCharm, which rhaleblian uses to do Git diffs
 /.idea
 
 /win-install/*.exe
+/CHM/Maya_nif_exporter.chw
