@@ -60,7 +60,7 @@ Name "${MED_NAME}"
 
 !insertmacro MUI_PAGE_INSTFILES
 
-!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\Maya_nif_exporter.chm"
+;!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\Maya_nif_exporter.chm"
 !define MUI_FINISHPAGE_LINK "Visit us at http://niftools.sourceforge.net"
 !define MUI_FINISHPAGE_LINK_LOCATION "http://niftools.sourceforge.net"
 !insertmacro MUI_PAGE_FINISH
