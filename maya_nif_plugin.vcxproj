@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>maya_nif_plugin</ProjectName>
+    <ProjectName>nif</ProjectName>
     <ProjectGuid>{DE2F121F-8326-4144-A766-444451895AFA}</ProjectGuid>
     <RootNamespace>Maya NIF Plugin</RootNamespace>
   </PropertyGroup>
