@@ -132,7 +132,7 @@ copy /Y "$(ProjectDir)\$(Platform)\$(Configuration)\$(Target)$(Extension)" "$(US
     </ClCompile>
     <Link>
       <AdditionalOptions>/subsystem:windows /incremental:no /machine:I386 /export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>niflib.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>niflib_dll.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>niflib\lib;$(MAYA_LOCATION)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
