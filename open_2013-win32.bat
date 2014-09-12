@@ -1,0 +1,1 @@
+call open_solution 2013 win32

@@ -158,5 +158,7 @@ $RECYCLE.BIN/
 # Project metadata for PyCharm, which rhaleblian uses to do Git diffs
 /.idea
 
+/Debug*
+/Release*
 /win-install/*.exe
 /CHM/Maya_nif_exporter.chw
