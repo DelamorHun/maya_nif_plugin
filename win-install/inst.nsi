@@ -35,7 +35,7 @@
 
 !include "MUI.nsh"
 
-!define VERSION "0.7.0.2"
+!define VERSION "0.7.0a"
 !define FULL_NAME "Nif for Maya ${VERSION}"
 !define MED_NAME "Nif for Maya"
 !define REGKEY_UNINSTALLER "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MED_NAME}"
@@ -74,36 +74,24 @@ Name "${MED_NAME}"
 ;--------------------------------
 ; Languages
  
-;LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
 !insertmacro MUI_LANGUAGE "English"
-
-
+    
 ;--------------------------------
 ;Language Strings
 
 ;Description
 LangString DESC_SecCopyUI ${LANG_ENGLISH} "Copy all required files to the installation and user application folders."
 
-
 ;--------------------------------
 ; Data
 
 OutFile "nif-maya-${VERSION}.exe"
-VIProductVersion "0.7.0.2"
 InstallDir "$PROGRAMFILES\NifTools\maya"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Nif for Maya"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "Alpha test of installers"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "NifTools"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalTrademarks" ""
-VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "2005-2014 NifTools"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Universal Installer"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "0.7.0.2"
 BrandingText "http://niftools.sourceforge.net/"
 Icon inst.ico
 UninstallIcon inst.ico
 ShowInstDetails show
 ShowUninstDetails show
-
 
 ;--------------------------------
 ; Functions
@@ -125,13 +113,13 @@ Section
   FileWrite $0 "+ MAYAVERSION:2012 PLATFORM:win32 nif 1.0 $INSTDIR/2012$\r$\n"
   FileWrite $0 "PATH += $INSTDIR/2012$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2012 PLATFORM:win64 nif 1.0 $INSTDIR/2012-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2012-x64 PLATFORM:win64 nif 1.0 $INSTDIR/2012-x64$\r$\n"
   FileWrite $0 "PATH += $INSTDIR/2012-x64$\r$\n"
 
   FileWrite $0 "+ MAYAVERSION:2013 PLATFORM:win32 nif 1.0 $INSTDIR/2013$\r$\n"
   FileWrite $0 "PATH += $INSTDIR/2013$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2013 PLATFORM:win64 nif 1.0 $INSTDIR/2013-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2013-x64 PLATFORM:win64 nif 1.0 $INSTDIR/2013-x64$\r$\n"
   FileWrite $0 "PATH += $INSTDIR/2013-x64$\r$\n"
 
   FileWrite $0 "+ MAYAVERSION:2014 PLATFORM:win64 nif 1.0 $INSTDIR/2014-x64$\r$\n"
