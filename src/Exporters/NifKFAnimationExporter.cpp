@@ -182,7 +182,7 @@ void NifKFAnimationExporter::ExportAnimation( NiControllerSequenceRef controller
 		rest_plug = node.findPlug("rotateRestZ");
 		rest_q_z = rest_plug.asDouble();
 
-		MEulerRotation euler_qq((rest_q_x / 180) * PI, (rest_q_y / 180) * PI, (rest_q_z / 180) * PI);
+		MEulerRotation euler_qq((rest_q_x / 180) * M_PI, (rest_q_y / 180) * M_PI, (rest_q_z / 180) * M_PI);
 		MQuaternion qq = euler_qq.asQuaternion();
 		Quaternion qqq(qq.w, qq.x, qq.y, qq.z);
 
@@ -982,7 +982,7 @@ void NifKFAnimationExporter::ExportAnimation( NiControllerSequenceRef controller
 			float current_time = controller_sequence->GetStartTime();
 			float time_increment = (controller_sequence->GetStopTime() - controller_sequence->GetStartTime()) / control_points;
 
-			for(int i = 0; i < control_points; i++) {
+			for(unsigned int i = 0; i < control_points; i++) {
 				Vector3 key(rest_translation.x, rest_translation.y, rest_translation.z);
 				double value;
 
@@ -1116,9 +1116,9 @@ void NifKFAnimationExporter::ExportAnimation( NiControllerSequenceRef controller
 			float default_y = node.transformation().translation(MSpace::kPostTransform).y;
 			float default_z = node.transformation().translation(MSpace::kPostTransform).z;
 
-			int translate_index_x = 0;
-			int translate_index_y = 0;
-			int translate_index_z = 0;
+			unsigned int translate_index_x = 0;
+			unsigned int translate_index_y = 0;
+			unsigned int translate_index_z = 0;
 			MTime time_min(100000.0, MTime::kSeconds);
 			int choice = -1;
 
@@ -1263,7 +1263,7 @@ void NifKFAnimationExporter::ExportAnimation( NiControllerSequenceRef controller
 
 			vector<Key<unsigned char>> bool_keys;
 
-			for(int i = 0; i < translateX.numKeys(); i++) {
+			for(unsigned int i = 0; i < translateX.numKeys(); i++) {
 				Key<unsigned char> bool_key;
 				bool_key.time = translateX.time(i).asUnits(MTime::kSeconds);
 
@@ -1332,7 +1332,7 @@ float NifKFAnimationExporter::GetAnimationStartTime() {
 			MAnimUtil::findAnimatedPlugs(iterator.currentItem(), animated_plugs);
 		}
 
-		for(int i = 0; i < animated_plugs.length(); i++) {
+		for(unsigned int i = 0; i < animated_plugs.length(); i++) {
 			MString partial_name = animated_plugs[i].partialName();
 			if(partial_name == "rx" || partial_name == "ry" || partial_name == "rz" ||
 				partial_name == "tx" || partial_name == "ty" || partial_name == "tz" ||
@@ -1378,7 +1378,7 @@ float NifKFAnimationExporter::GetAnimationEndTime() {
 			MAnimUtil::findAnimatedPlugs(iterator.currentItem(), animated_plugs);
 		}
 
-		for(int i = 0; i < animated_plugs.length(); i++) {
+		for(unsigned int i = 0; i < animated_plugs.length(); i++) {
 			MString partial_name = animated_plugs[i].partialName();
 			if(partial_name == "rx" || partial_name == "ry" || partial_name == "rz" ||
 				partial_name == "tx" || partial_name == "ty" || partial_name == "tz" ||

@@ -167,8 +167,8 @@ MStatus NifKFImportingFixture::ReadNodes( const MFileObject& file ) {
 			int duplicates = 0;
 			MFnDependencyNode current_node;
 
-			for(int i = 0; i < created_objects.size(); i++) {
-				current_node.setObject(created_objects[i]);
+			for(int icos = 0; icos < created_objects.size(); icos++) {
+				current_node.setObject(created_objects[icos]);
 				string current_name = this->translatorUtils->MakeNifName(current_node.name().asChar());
 				if(current_name == target) {
 					duplicates++;
@@ -268,11 +268,11 @@ MStatus NifKFImportingFixture::ReadNodes( const MFileObject& file ) {
 			MGlobal::executeCommand(mel_command + node_name);
 		}
 		plug = transformNode.findPlug("rotateRestX");
-		plug.setDouble((rotate_x / PI) * 180.0);
+		plug.setDouble((rotate_x / M_PI) * 180.0);
 		plug = transformNode.findPlug("rotateRestY");
-		plug.setDouble((rotate_y / PI) * 180.0);
+		plug.setDouble((rotate_y / M_PI) * 180.0);
 		plug = transformNode.findPlug("rotateRestZ");
-		plug.setDouble((rotate_z / PI) * 180.0);
+		plug.setDouble((rotate_z / M_PI) * 180.0);
 
 		this->animationImporter->ImportAnimation(controllerLinks[i].interpolator, target_object);
 
@@ -286,7 +286,7 @@ MStatus NifKFImportingFixture::ReadNodes( const MFileObject& file ) {
 			MGlobal::executeCommand(mel_command + node_name);
 		}
 
-		mel_command = "setAttr " + node_name + "\.exportIndex " + export_order;
+		mel_command = "setAttr " + node_name + ".exportIndex " + export_order;
 		MGlobal::executeCommand(mel_command);
 		export_order++;
 
@@ -297,7 +297,7 @@ MStatus NifKFImportingFixture::ReadNodes( const MFileObject& file ) {
 			MGlobal::executeCommand(mel_command + node_name);
 		}
 
-		mel_command = "setAttr " + node_name + "\.animationPriority " + controllerLinks[i].priority;
+		mel_command = "setAttr " + node_name + ".animationPriority " + controllerLinks[i].priority;
 		MGlobal::executeCommand(mel_command);
 }
 

@@ -171,6 +171,7 @@ MStatus NifDefaultImportingFixture::ReadNodes( const MFileObject& file )
 		MGlobal::displayError( "Error:  Unknown Exception." );
 		return MStatus::kFailure;
 	}
+	return MStatus::kSuccess;
 }
 
 string NifDefaultImportingFixture::asString( bool verbose /*= false */ ) const {

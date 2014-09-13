@@ -36,6 +36,9 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		MGlobal::executeCommand(mel_command + node_name);
 	}
 
+#pragma warning(push)
+#pragma warning(disable : 4482)
+
 	if(interpolator->GetType().IsSameType(NiTransformInterpolator::TYPE)) {
 		NiTransformInterpolatorRef transformInterpolator = DynamicCast<NiTransformInterpolator>(interpolator);
 
@@ -55,8 +58,10 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		}
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiTransformInterpolator\"");
+		MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiTransformInterpolator\"");
 	}
+
+#pragma warning(pop)
 
 	if(interpolator->GetType().IsDerivedType(NiBSplineTransformInterpolator::TYPE)) {
 		NiBSplineTransformInterpolatorRef spline_interpolator = DynamicCast<NiBSplineTransformInterpolator>(interpolator);
@@ -110,10 +115,10 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 
 			if(interpolator->GetType().IsSameType(NiBSplineCompTransformInterpolator::TYPE)) {
 				mel_command = "setAttr -type \"string\" ";
-				MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiBSplineCompTransformInterpolator\"");
+				MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiBSplineCompTransformInterpolator\"");
 			} else if(interpolator->GetType().IsSameType(NiBSplineTransformInterpolator::TYPE)) {
 				mel_command = "setAttr -type \"string\" ";
-				MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiBSplineTransformInterpolator\"");
+				MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiBSplineTransformInterpolator\"");
 			}
 		}
 	}
@@ -125,7 +130,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		translationKeys = posData->GetKeys();
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiPoint3Interpolator\"");
+		MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiPoint3Interpolator\"");
 	}
 
 	if(translationKeys.size() > 0) {
@@ -193,7 +198,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		}
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.rotationType \"quaternion\"");
+		MGlobal::executeCommand(mel_command + node_name + ".rotationType \"quaternion\"");
 
 		MEulerRotation mPrevRot;
 
@@ -203,16 +208,16 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 			MQuaternion mQuat( qt.x, qt.y, qt.z, qt.w );
 			MEulerRotation mRot = mQuat.asEulerRotation();
 			MEulerRotation mAlt;
-			mAlt[0] = PI + mRot[0];
-			mAlt[1] = PI - mRot[1];
-			mAlt[2] = PI + mRot[2];
+			mAlt[0] = M_PI + mRot[0];
+			mAlt[1] = M_PI - mRot[1];
+			mAlt[2] = M_PI + mRot[2];
 
-			for ( size_t j = 0; j < 3; ++j ) {
+			for ( unsigned int j = 0; j < 3; ++j ) {
 				double prev_diff = abs(mRot[j] - mPrevRot[j]);
 				//Try adding and subtracting multiples of 2 pi radians to get
 				//closer to the previous angle
 				while (true) {
-					double new_angle = mRot[j] - (PI * 2);
+					double new_angle = mRot[j] - (M_PI * 2);
 					double diff = abs( new_angle - mPrevRot[j] );
 					if ( diff < prev_diff ) {
 						mRot[j] = new_angle;
@@ -222,7 +227,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 					}
 				}
 				while (true) {
-					double new_angle = mRot[j] + (PI * 2);
+					double new_angle = mRot[j] + (M_PI * 2);
 					double diff = abs( new_angle - mPrevRot[j] );
 					if ( diff < prev_diff ) {
 						mRot[j] = new_angle;
@@ -233,12 +238,12 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 				}
 			}
 
-			for ( size_t j = 0; j < 3; ++j ) {
+			for ( unsigned int j = 0; j < 3; ++j ) {
 				double prev_diff = abs(mAlt[j] - mPrevRot[j]);
 				//Try adding and subtracting multiples of 2 pi radians to get
 				//closer to the previous angle
 				while (true) {
-					double new_angle = mAlt[j] - (PI * 2);
+					double new_angle = mAlt[j] - (M_PI * 2);
 					double diff = abs( new_angle - mPrevRot[j] );
 					if ( diff < prev_diff ) {
 						mAlt[j] = new_angle;
@@ -248,7 +253,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 					}
 				}
 				while (true) {
-					double new_angle = mAlt[j] + (PI * 2);
+					double new_angle = mAlt[j] + (M_PI * 2);
 					double diff = abs( new_angle - mPrevRot[j] );
 					if ( diff < prev_diff ) {
 						mAlt[j] = new_angle;
@@ -271,9 +276,9 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 
 			mPrevRot = mRot;
 
-			float rotateX = mRot[0];
-			float rotateY = mRot[1];
-			float rotateZ = mRot[2];
+			float rotateX = static_cast<float>(mRot[0]);
+			float rotateY = static_cast<float>(mRot[1]);
+			float rotateZ = static_cast<float>(mRot[2]);
 
 			MTime time(rotationQuaternionKeys.at(i).time, MTime::kSeconds);
 
@@ -338,7 +343,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		}
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.rotationType \"XYZ\"");
+		MGlobal::executeCommand(mel_command + node_name + ".rotationType \"XYZ\"");
 	}
 
 	if(interpolator->GetType().IsSameType(NiFloatInterpolator::TYPE)) {
@@ -359,7 +364,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		}
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiFloatInterpolator\"");
+		MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiFloatInterpolator\"");
 	}
 
 	if(interpolator->GetType().IsSameType(NiBoolInterpolator::TYPE)) {
@@ -386,7 +391,7 @@ void NifKFAnimationImporter::ImportAnimation( NiInterpolatorRef interpolator,MSt
 		}
 
 		mel_command = "setAttr -type \"string\" ";
-		MGlobal::executeCommand(mel_command + node_name + "\.interpolatorType \"NiBoolInterpolator\"");
+		MGlobal::executeCommand(mel_command + node_name + ".interpolatorType \"NiBoolInterpolator\"");
 	}
 }
 

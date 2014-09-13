@@ -462,7 +462,7 @@ MDagPath NifMeshImporter::ImportMesh( NiAVObjectRef root, MObject parent ) {
 		MFnSkinCluster clusterFn;
 
 		if(this->translatorOptions->importNormalizedWeights == false) {
-			MGlobal::executeCommand("setAttr " + clusterFn.name() + "\.normalizeWeights 0");
+			MGlobal::executeCommand("setAttr " + clusterFn.name() + ".normalizeWeights 0");
 		}
 
 		MSelectionList selList;

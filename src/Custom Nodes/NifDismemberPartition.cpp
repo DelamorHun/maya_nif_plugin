@@ -522,7 +522,7 @@ BSPartFlag NifDismemberPartition::stringArrayToPart( const MStringArray& string_
 	BSPartFlag ret = (BSPartFlag)0;
 	MString current_flag;
 
-	for(int i = 0; i < string_array.length(); i++) {
+	for(unsigned int i = 0; i < string_array.length(); i++) {
 		current_flag = string_array[i];
 
 		if(current_flag == "PF_EDITOR_VISIBLE") {

@@ -71,16 +71,16 @@ void NifAnimationImporter::ImportControllers( NiAVObjectRef niAVObj, MDagPath & 
 					MQuaternion mQuat( niQuat.x, niQuat.y, niQuat.z, niQuat.w );
 					MEulerRotation mRot = mQuat.asEulerRotation();
 					MEulerRotation mAlt;
-					mAlt[0] = PI + mRot[0];
-					mAlt[1] = PI - mRot[1];
-					mAlt[2] = PI + mRot[2];
+					mAlt[0] = M_PI + mRot[0];
+					mAlt[1] = M_PI - mRot[1];
+					mAlt[2] = M_PI + mRot[2];
 
-					for ( size_t j = 0; j < 3; ++j ) {
+					for ( unsigned int j = 0; j < 3; ++j ) {
 						double prev_diff = abs(mRot[j] - mPrevRot[j]);
 						//Try adding and subtracting multiples of 2 pi radians to get
 						//closer to the previous angle
 						while (true) {
-							double new_angle = mRot[j] - (PI * 2);
+							double new_angle = mRot[j] - (M_PI * 2);
 							double diff = abs( new_angle - mPrevRot[j] );
 							if ( diff < prev_diff ) {
 								mRot[j] = new_angle;
@@ -90,7 +90,7 @@ void NifAnimationImporter::ImportControllers( NiAVObjectRef niAVObj, MDagPath & 
 							}
 						}
 						while (true) {
-							double new_angle = mRot[j] + (PI * 2);
+							double new_angle = mRot[j] + (M_PI * 2);
 							double diff = abs( new_angle - mPrevRot[j] );
 							if ( diff < prev_diff ) {
 								mRot[j] = new_angle;
@@ -101,12 +101,12 @@ void NifAnimationImporter::ImportControllers( NiAVObjectRef niAVObj, MDagPath & 
 						}
 					}
 
-					for ( size_t j = 0; j < 3; ++j ) {
+					for ( unsigned int j = 0; j < 3; ++j ) {
 						double prev_diff = abs(mAlt[j] - mPrevRot[j]);
 						//Try adding and subtracting multiples of 2 pi radians to get
 						//closer to the previous angle
 						while (true) {
-							double new_angle = mAlt[j] - (PI * 2);
+							double new_angle = mAlt[j] - (M_PI * 2);
 							double diff = abs( new_angle - mPrevRot[j] );
 							if ( diff < prev_diff ) {
 								mAlt[j] = new_angle;
@@ -116,7 +116,7 @@ void NifAnimationImporter::ImportControllers( NiAVObjectRef niAVObj, MDagPath & 
 							}
 						}
 						while (true) {
-							double new_angle = mAlt[j] + (PI * 2);
+							double new_angle = mAlt[j] + (M_PI * 2);
 							double diff = abs( new_angle - mPrevRot[j] );
 							if ( diff < prev_diff ) {
 								mAlt[j] = new_angle;

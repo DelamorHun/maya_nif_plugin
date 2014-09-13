@@ -49,8 +49,8 @@ void NifMaterialImporterSkyrim::GatherMaterialsAndTextures( NiAVObjectRef & root
 
 		MObject found_material;
 
-		for(int i = 0; i < this->property_groups.size(); i++) {
-			vector<NiPropertyRef> property_group = this->property_groups[i];
+		for(int ipg = 0; ipg < this->property_groups.size(); ipg++) {
+			vector<NiPropertyRef> property_group = this->property_groups[ipg];
 			int similarities = 0;
 
 			for(int i = 0; i < property_group.size(); i++) {
@@ -69,7 +69,7 @@ void NifMaterialImporterSkyrim::GatherMaterialsAndTextures( NiAVObjectRef & root
 			}
 
 			if(valid_properties != 0 && similarities == valid_properties) {
-				found_material = this->imported_materials[i];
+				found_material = this->imported_materials[ipg];
 				break;
 			}
 		}
@@ -231,9 +231,9 @@ void NifMaterialImporterSkyrim::GatherMaterialsAndTextures( NiAVObjectRef & root
 				MGlobal::executeCommand(mel_command + new_shader.name());
 
 				mel_command = "setAttr -type \"string\" ";
-				MGlobal::executeCommand(mel_command + new_shader.name() + "\.skyrimShaderFlags1 \"" + shader_flags1 + "\"");
-				MGlobal::executeCommand(mel_command + new_shader.name() + "\.skyrimShaderFlags2 \"" + shader_flags2 + "\"");
-				MGlobal::executeCommand(mel_command + new_shader.name() + "\.skyrimShaderType \"" + shader_Type + "\"");
+				MGlobal::executeCommand(mel_command + new_shader.name() + ".skyrimShaderFlags1 \"" + shader_flags1 + "\"");
+				MGlobal::executeCommand(mel_command + new_shader.name() + ".skyrimShaderFlags2 \"" + shader_flags2 + "\"");
+				MGlobal::executeCommand(mel_command + new_shader.name() + ".skyrimShaderType \"" + shader_Type + "\"");
 
 				unsigned int shader_type2 = shader_property->GetSkyrimShaderType();
 				if(texture_set != NULL) {
@@ -244,20 +244,20 @@ void NifMaterialImporterSkyrim::GatherMaterialsAndTextures( NiAVObjectRef & root
 						MGlobal::executeCommand(mel_command + new_shader.name());
 
 						mel_command = "setAttr -type \"string\" ";
-						MGlobal::executeCommand(mel_command + new_shader.name() + "\.cubeMapTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(4)) + "\"");
-						MGlobal::executeCommand(mel_command + new_shader.name() + "\.evironmentMaskTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(5)) + "\"");
+						MGlobal::executeCommand(mel_command + new_shader.name() + ".cubeMapTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(4)) + "\"");
+						MGlobal::executeCommand(mel_command + new_shader.name() + ".evironmentMaskTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(5)) + "\"");
 					} else if(shader_type2 == 2) {
 						mel_command = "addAttr -dt \"string\" -shortName glowMapTexture ";
 						MGlobal::executeCommand(mel_command + new_shader.name());
 						
 						mel_command = "setAttr -type \"string\" ";
-						MGlobal::executeCommand(mel_command + new_shader.name() + "\.glowMapTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(2)) + "\"");
+						MGlobal::executeCommand(mel_command + new_shader.name() + ".glowMapTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(2)) + "\"");
 					} else if(shader_type2 == 5) {
 						mel_command = "addAttr -dt \"string\" -shortName skinTexture ";
 						MGlobal::executeCommand(mel_command + new_shader.name());
 
 						mel_command = "setAttr -type \"string\" ";
-						MGlobal::executeCommand(mel_command + new_shader.name() + "\.skinTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(2)) + "\"");
+						MGlobal::executeCommand(mel_command + new_shader.name() + ".skinTexture \"" + this->GetTextureFilePath(texture_set->GetTexture(2)) + "\"");
 
 					}
 				}

@@ -67,7 +67,8 @@ void NifTranslatorOptions::ParseOptionsString( const MString & optionsString )
 
 		}
 		if ( tokens[0] == "exportVersion" ) {
-			this->exportVersion = ParseVersionString( tokens[1].asChar() );
+			string versionstring = tokens[1].asChar();
+			this->exportVersion = ParseVersionString( versionstring );
 
 			if ( exportVersion == VER_INVALID ) {
 				MGlobal::displayWarning( "Invalid export version specified.  Using default of 4.0.0.2." );
@@ -147,7 +148,7 @@ void NifTranslatorOptions::ParseOptionsString( const MString & optionsString )
 			//out << "Export Morrowind Rename:  " << export_mor_rename << endl;
 		}
 		if ( tokens[0] == "minimumVertexWeight") {
-			this->exportMinimumVertexWeight = atof(tokens[1].asChar());
+			this->exportMinimumVertexWeight = static_cast<float>(atof(tokens[1].asChar()));
 		}
 		if ( tokens[0] == "importSkelComb" ) {
 			if ( tokens[1] == "1" ) {

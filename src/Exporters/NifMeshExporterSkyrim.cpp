@@ -438,8 +438,8 @@ void NifMeshExporterSkyrim::ExportMesh( MObject dagNode ) {
 				 current_blind_data_node.setObject(connected_dismember_plugs[0].node());
 				 dismember_nodes_id[x] = current_blind_data_node.findPlug("typeId").asInt();
 			}
-			for(int x = 0; x < dismember_nodes.length() - 1; x++) {
-				for(int y = x + 1; y < dismember_nodes.length(); y++) {
+			for(unsigned int x = 0; x < dismember_nodes.length() - 1; x++) {
+				for(unsigned int y = x + 1; y < dismember_nodes.length(); y++) {
 					if (dismember_nodes_id[x] > dismember_nodes_id[y]) {
 						MObject aux = dismember_nodes[x];
 						blind_data_id = dismember_nodes_id[x]; 
@@ -451,7 +451,7 @@ void NifMeshExporterSkyrim::ExportMesh( MObject dagNode ) {
 				}
 			}
 
-			for(int x = 0; x < dismember_nodes.length(); x++) {
+			for(unsigned int x = 0; x < dismember_nodes.length(); x++) {
 				current_dismember_node.setObject(dismember_nodes[x]);
 				target_faces_plug = current_dismember_node.findPlug("targetFaces");
 				connected_dismember_plugs.clear();
