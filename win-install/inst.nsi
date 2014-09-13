@@ -35,12 +35,14 @@
 
 !include "MUI.nsh"
 
-!define VERSION "0.7.0a"
+!define VERSION "0.7.0.3"
 !define FULL_NAME "Nif for Maya ${VERSION}"
 !define MED_NAME "Nif for Maya"
+!define URL "http://niftools.sourceforge.net"
 !define REGKEY_UNINSTALLER "Software\Microsoft\Windows\CurrentVersion\Uninstall\${MED_NAME}"
 !define REGKEY_INSTALLER "Software\NifTools\${MED_NAME}"
-!define MODULE_FILE "$DOCUMENTS\maya\modules\nif.mod"
+!define MODULE_DIR "$DOCUMENTS\maya\modules"
+!define MODULE_PATH "$DOCUMENTS\maya\modules\nif"
 
 Name "${MED_NAME}"
 
@@ -87,14 +89,35 @@ LangString DESC_SecCopyUI ${LANG_ENGLISH} "Copy all required files to the instal
 
 OutFile "nif-maya-${VERSION}.exe"
 InstallDir "$PROGRAMFILES\NifTools\maya"
-BrandingText "http://niftools.sourceforge.net/"
+BrandingText "${URL}"
+VIProductVersion "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "${MED_NAME}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "${MED_NAME} Installer"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "NifTools"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "NifTools"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "${URL}"
 Icon inst.ico
 UninstallIcon inst.ico
 ShowInstDetails show
 ShowUninstDetails show
+XPStyle on
 
 ;--------------------------------
 ; Functions
+
+Function .onInit
+  ReadRegStr $0 HKLM "${REGKEY_INSTALLER}" "InstallDir"
+  StrCmp $0 "" Continue 0
+  MessageBox MB_ICONSTOP "A version of Nif for Maya is already installed. Uninstall it before running this installer."
+  Abort
+Continue:
+  ClearErrors
+FunctionEnd
+
+;--------------------------------
+; Sections
 
 Section
   SectionIn RO
@@ -107,26 +130,26 @@ Section
   File /r ..\maya\Release\2014-x64
   File /r ..\maya\Release\2015-x64
 
-  CreateDirectory "$DOCUMENTS\maya\modules"
-  FileOpen $0 "${MODULE_FILE}" w
+  CreateDirectory "${MODULE_DIR}"
+  FileOpen $0 "${MODULE_PATH}" w
 
-  FileWrite $0 "+ MAYAVERSION:2012 PLATFORM:win32 nif 1.0 $INSTDIR/2012$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2012$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2012 PLATFORM:win32 nif 1.0 $INSTDIR\2012$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2012$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2012-x64 PLATFORM:win64 nif 1.0 $INSTDIR/2012-x64$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2012-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2012 PLATFORM:win64 nif 1.0 $INSTDIR\2012-x64$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2012-x64$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2013 PLATFORM:win32 nif 1.0 $INSTDIR/2013$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2013$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2013 PLATFORM:win32 nif 1.0 $INSTDIR\2013$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2013$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2013-x64 PLATFORM:win64 nif 1.0 $INSTDIR/2013-x64$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2013-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2013 PLATFORM:win64 nif 1.0 $INSTDIR\2013-x64$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2013-x64$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2014 PLATFORM:win64 nif 1.0 $INSTDIR/2014-x64$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2014-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2014 PLATFORM:win64 nif 1.0 $INSTDIR\2014-x64$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2014-x64$\r$\n"
 
-  FileWrite $0 "+ MAYAVERSION:2015 PLATFORM:win64 nif 1.0 $INSTDIR/2015-x64$\r$\n"
-  FileWrite $0 "PATH += $INSTDIR/2015-x64$\r$\n"
+  FileWrite $0 "+ MAYAVERSION:2015 PLATFORM:win64 nif 1.0 $INSTDIR\2015-x64$\r$\n"
+  FileWrite $0 "PATH += $INSTDIR\2015-x64$\r$\n"
 
   FileClose $0
 
@@ -141,7 +164,7 @@ Section
 
   ; Write the installation path into the registry
   WriteRegStr HKLM "${REGKEY_INSTALLER}" "InstallDir" "$INSTDIR"
-  WriteRegStr HKLM "${REGKEY_INSTALLER}" "ModuleFile" "${MODULE_FILE}"
+  WriteRegStr HKLM "${REGKEY_INSTALLER}" "ModulePath" "${MODULE_PATH}"
 
   ; Write the uninstall keys & uninstaller for Windows
   WriteRegStr HKLM "${REGKEY_UNINSTALLER}" "DisplayName" "${MED_NAME}"
@@ -155,7 +178,7 @@ Section "Uninstall"
   SetAutoClose false
 
   ReadRegStr $0 HKLM "${REGKEY_INSTALLER}" "InstallDir"
-  ReadRegStr $1 HKLM "${REGKEY_INSTALLER}" "ModuleFile"
+  ReadRegStr $1 HKLM "${REGKEY_INSTALLER}" "ModulePath"
 
   RMDir /r "$0"
   Delete "$1"
