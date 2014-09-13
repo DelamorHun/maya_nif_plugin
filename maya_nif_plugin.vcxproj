@@ -79,14 +79,15 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>niflib_dll_debug.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>niflib\lib;$(MAYA_LOCATION)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>niflib.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Configuration) - DLL;$(MAYA_LOCATION)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
     </Link>
+    <PostBuildEvent />
     <PostBuildEvent>
-      <Command>copy /y D:\Documents\GitHub\maya_nif_plugin\Debug\maya_nif_plugin.mll D:\Programs\NifTools\maya\2013-debug\plug-ins</Command>
+      <Command>postbuild.bat $(Configuration) $(Platform) $(TargetPath)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -103,8 +104,8 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/subsystem:windows /dll /incremental:yes /debug /export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>niflib_dll_debug_x64.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>niflib\lib;$(MAYA_LOCATION)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>niflib.lib;Foundation.lib;OpenMaya.lib;OpenMayaAnim.lib;OpenMayaUI.lib;OpenMayaFX.lib;OpenMayaRender.lib;Image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(Platform)\$(Configuration) - DLL;$(MAYA_LOCATION)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>

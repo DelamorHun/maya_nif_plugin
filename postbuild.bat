@@ -12,8 +12,8 @@ mkdir %modulepath%\plug-ins
 mkdir %modulepath%\scripts
 xcopy /fy %outputfile% %modulepath%\plug-ins
 if "%platform%"=="x64" (
-  xcopy /fy niflib\bin\niflib_x64.dll %modulepath%
+  xcopy /fy "%platform%\%configuration% - DLL\niflib.dll" %modulepath%
 ) else (
-  xcopy /fy niflib\bin\niflib.dll %modulepath%
+  xcopy /fy "%configuration% - DLL\niflib.dll" %modulepath%
 )
 xcopy /fy *.mel %modulepath%\scripts

@@ -1,8 +1,8 @@
 @echo off
 rem : Launch VS for a specific flavour of Maya
 
-set VC="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\VCExpress.exe"
-rem set VC="C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\WDExpress.exe" 
+rem set VC="C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\VCExpress.exe"
+set VC="C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\WDExpress.exe" 
 
 set MAYA_VERSION=%1
 set MAYA_PLATFORM=%2
