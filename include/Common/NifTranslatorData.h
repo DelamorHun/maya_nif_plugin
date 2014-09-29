@@ -108,11 +108,11 @@ public:
 
 	//map to hold references between the nif materials and the material objects in maya
 	//because skyrim materials don't have proper names
-	vector< pair<vector<NiPropertyRef>, MObject>> importedMaterials;
+	vector< pair<vector<NiPropertyRef>, MObject> > importedMaterials;
 
 	//map to hold references between nif materials and textures in maya
 	//and to execute other misc operations on connections between maya meshes and maya materials
-	vector< pair<vector<NiPropertyRef>, vector<NifTextureConnectorRef>>> importedTextureConnectors;
+	vector< pair< vector<NiPropertyRef>, vector<NifTextureConnectorRef> > > importedTextureConnectors;
 
 	MFileObject importFile; //The file currently being imported
 

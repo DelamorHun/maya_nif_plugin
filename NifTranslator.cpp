@@ -101,7 +101,7 @@ MStatus NifTranslator::reader	 (const MFileObject& file, const MString& optionsS
 	NifTranslatorUtilsRef translator_utils(new NifTranslatorUtils(translator_data,translator_options));
 	NifImportingFixtureRef importer;
 
-	ImportType import_type = ImportType::Default;
+	ImportType import_type = Default;
 	Header file_header = ReadHeader(file.resolvedFullName().asChar());
 
 	vector<string> block_types = file_header.getBlockTypes();
@@ -110,23 +110,23 @@ MStatus NifTranslator::reader	 (const MFileObject& file, const MString& optionsS
 	translator_options->ParseOptionsString(optionsString);
 
 	if(block_types[block_types_index[0]] == NiControllerSequence::TYPE.GetTypeName()) {
-		import_type = ImportType::AnimationKF;
+		import_type = AnimationKF;
 	} else if(block_types[block_types_index[0]] == BSFadeNode::TYPE.GetTypeName() ||
 		 file_header.getUserVersion() == 12 || (file_header.getUserVersion() == 11 && file_header.getUserVersion2() == 57) ) {
-		import_type = ImportType::SkyrimFallout;
+		import_type = SkyrimFallout;
 	} else {
 		for(int i = 0; i < block_types.size(); i++) {
 			if(block_types[i] == BSDismemberSkinInstance::TYPE.GetTypeName() || block_types[i] == BSShaderTextureSet::TYPE.GetTypeName()) {
-				import_type = ImportType::SkyrimFallout;
+				import_type = SkyrimFallout;
 			}
 		}
 	}
 
-	if(import_type == ImportType::AnimationKF) {
+	if(import_type == AnimationKF) {
 		importer = new NifKFImportingFixture(translator_options, translator_data, translator_utils);
-	} else if (import_type == ImportType::SkyrimFallout) {
+	} else if (import_type == SkyrimFallout) {
 		importer = new NifSkyrimImportingFixture(translator_options, translator_data, translator_utils);
-	} else if (import_type == ImportType::Default) {
+	} else if (import_type == Default) {
 		importer = new NifDefaultImportingFixture(translator_data, translator_options, translator_utils);
 	}
 

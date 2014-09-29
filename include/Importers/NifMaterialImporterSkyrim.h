@@ -101,7 +101,7 @@ private:
 	//these 2 vectors are actually interconnected meaning that
 	//an MOject in the imported materials corresponds to a set of properties in the property_groups
 	//at the exact same index. A maya material is created for a set of properties
-	vector<vector<NiPropertyRef>> property_groups;
+	vector< vector<NiPropertyRef> > property_groups;
 
 	vector<MObject> imported_materials;
 

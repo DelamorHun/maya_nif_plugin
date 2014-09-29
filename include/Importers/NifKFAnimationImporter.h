@@ -93,11 +93,11 @@
 #include <obj/NiBoolInterpolator.h>
 #include <obj/NiBoolData.h>
 
-#include "Common\NifTranslatorRefObject.h"
-#include "Common\NifTranslatorOptions.h"
-#include "Common\NifTranslatorData.h"
-#include "Common\NifTranslatorUtils.h"
-#include "Common\NifTranslatorFixtureItem.h"
+#include "Common/NifTranslatorRefObject.h"
+#include "Common/NifTranslatorOptions.h"
+#include "Common/NifTranslatorData.h"
+#include "Common/NifTranslatorUtils.h"
+#include "Common/NifTranslatorFixtureItem.h"
 
 using namespace Niflib;
 using namespace std;
